@@ -43,6 +43,10 @@ target 'JSI_example' do
     :app_path => "#{Pod::Config.instance.installation_root}/.."
   )
 
+  if ENV['RCT_NEW_ARCH_ENABLED'] == '1'
+    pod 'TampereJsCppModule', :path => "./../TampereJsCppModule"
+  end
+
   target 'JSI_exampleTests' do
     inherit! :complete
     # Pods for testing

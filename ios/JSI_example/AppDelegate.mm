@@ -1,6 +1,12 @@
 #import "AppDelegate.h"
 
 #import <React/RCTBundleURLProvider.h>
+#import <React/CoreModulesPlugins.h>
+#import <ReactCommon/RCTTurboModuleManager.h>
+#import <TurboModules/TampereJsCppModule.h>
+
+@interface AppDelegate () <RCTTurboModuleManagerDelegate> {}
+@end
 
 @implementation AppDelegate
 
@@ -31,6 +37,17 @@
 - (BOOL)concurrentRootEnabled
 {
   return true;
+}
+
+#pragma mark RCTTurboModuleManagerDelegate
+
+- (std::shared_ptr<facebook::react::TurboModule>)getTurboModule:(const std::string &)name
+                                                      jsInvoker:(std::shared_ptr<facebook::react::CallInvoker>)jsInvoker
+{
+  if (name == "TampereJsCppModule") {
+    return std::make_shared<facebook::react::TampereJsCppModule>(jsInvoker);
+  }
+  return nullptr;
 }
 
 @end

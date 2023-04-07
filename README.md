@@ -1,0 +1,3 @@
+# Notes
+
+1. Remember that modules must start from Native...

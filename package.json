@@ -2,6 +2,10 @@
   "name": "JSI_example",
   "version": "0.0.1",
   "private": true,
+  "description": "React Native with Cxx Turbo Native Modules",
+  "author": "Jakub Tkacz <jakub@tkacz.com.pl> (https://github.com/Ubax)",
+  "license": "MIT",
+  "homepage": "https://jakubtkacz.pl",
   "scripts": {
     "android": "react-native run-android",
     "ios": "react-native run-ios",
@@ -32,5 +36,13 @@
   },
   "jest": {
     "preset": "react-native"
+  },
+  "codegenConfig": {
+    "name": "TampereJsSpecs",
+    "type": "all",
+    "jsSrcsDir": "TampereJsCppModule",
+    "android": {
+      "javaPackageName": "com.facebook.fbreact.specs"
+    }
   }
 }

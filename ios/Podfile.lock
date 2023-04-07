@@ -749,6 +749,15 @@ PODS:
     - React-logger (= 0.71.6)
     - React-perflogger (= 0.71.6)
   - SocketRocket (0.6.0)
+  - TampereJsCppModule (0.0.1):
+    - RCT-Folly (= 2021.07.22.00)
+    - RCTRequired
+    - RCTTypeSafety
+    - React-Codegen
+    - React-Core
+    - React-RCTFabric
+    - ReactCommon/turbomodule/bridging
+    - ReactCommon/turbomodule/core
   - Yoga (1.14.0)
   - YogaKit (1.18.1):
     - Yoga (~> 1.14)
@@ -817,6 +826,7 @@ DEPENDENCIES:
   - React-rncore (from `../node_modules/react-native/ReactCommon`)
   - React-runtimeexecutor (from `../node_modules/react-native/ReactCommon/runtimeexecutor`)
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
+  - TampereJsCppModule (from `./../TampereJsCppModule`)
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
 SPEC REPOS:
@@ -912,6 +922,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/runtimeexecutor"
   ReactCommon:
     :path: "../node_modules/react-native/ReactCommon"
+  TampereJsCppModule:
+    :path: "./../TampereJsCppModule"
   Yoga:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 
@@ -940,7 +952,7 @@ SPEC CHECKSUMS:
   RCTTypeSafety: 1c66daedd66f674e39ce9f40782f0d490c78b175
   React: e11ca7cdc7aa4ddd7e6a59278b808cfe17ebbd9f
   React-callinvoker: 77a82869505c96945c074b80bbdc8df919646d51
-  React-Codegen: 21b9bbca8f7ca9935363604b57561bf8a73a69b4
+  React-Codegen: e41f976d9c5e973881e0483c990ea19041edf6a4
   React-Core: 44903e47b428a491f48fd0eae54caddb2ea05ebf
   React-CoreModules: 83d989defdfc82be1f7386f84a56b6509f54ac74
   React-cxxreact: 058e7e6349649eae9cfcdec5854e702b26298932
@@ -967,9 +979,10 @@ SPEC CHECKSUMS:
   React-runtimeexecutor: 8692ac548bec648fa121980ccb4304afd136d584
   ReactCommon: 0c43eaeaaee231d7d8dc24fc5a6e4cf2b75bf196
   SocketRocket: fccef3f9c5cedea1353a9ef6ada904fde10d6608
+  TampereJsCppModule: 7379bdd5f1074a786cc0a4953ec359e2f53bd7a7
   Yoga: ba09b6b11e6139e3df8229238aa794205ca6a02a
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
 
-PODFILE CHECKSUM: eac777066f65f2c3dbda8b62d6ed8d4e032a8a00
+PODFILE CHECKSUM: d469cbff8c559165153b644e0b2f1ba389cadc44
 
 COCOAPODS: 1.12.0
