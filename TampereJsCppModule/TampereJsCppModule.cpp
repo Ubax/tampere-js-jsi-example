@@ -15,23 +15,23 @@ unsigned fibonacciSequence(unsigned index)
 namespace facebook::react
 {
 
-    TampereJsCppModule::TampereJsCppModule(std::shared_ptr<CallInvoker> jsInvoker)
-        : TampereJsCppModuleCxxSpec(std::move(jsInvoker)) {}
+    NativeTampereJsCppModule::NativeTampereJsCppModule(std::shared_ptr<CallInvoker> jsInvoker)
+        : NativeTampereJsCppModuleCxxSpec(std::move(jsInvoker)) {}
 
-    std::string TampereJsCppModule::wiki(jsi::Runtime &rt)
+    jsi::String NativeTampereJsCppModule::wiki(jsi::Runtime &rt)
     {
-        return R"V0G0N(
+        return jsi::String::createFromUtf8(rt, std::string(R"V0G0N(
              Fibonacci, also known as Leonardo Bonacci, Leonardo of Pisa, or Leonardo Bigollo Pisano, 
              was an Italian mathematician from the Republic of Pisa, 
-             considered to be 'the most talented Western mathematician of the Middle Ages'.)V0G0N";
+             considered to be 'the most talented Western mathematician of the Middle Ages'.)V0G0N"));
     }
-    double TampereJsCppModule::sequence(jsi::Runtime &rt, double index)
+    double NativeTampereJsCppModule::sequence(jsi::Runtime &rt, double index)
     {
         if (index > 0)
         {
-            return 1;
+            return fibonacciSequence((unsigned)index);
         }
-        return 0;
+        return -1;
     }
 
 } // namespace facebook::react

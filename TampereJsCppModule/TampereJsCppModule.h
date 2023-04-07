@@ -1,22 +1,23 @@
 #pragma once
 
-#if __has_include(<React-Codegen/AppSpecsJSI.h>) // CocoaPod headers on Apple
-#include <React-Codegen/AppSpecsJSI.h>
-#elif __has_include("AppSpecsJSI.h") // CMake headers on Android
-#include "AppSpecsJSI.h"
+#if __has_include(<React-Codegen/TampereJsSpecsJSI.h>) // CocoaPod headers on Apple
+#include <React-Codegen/TampereJsSpecsJSI.h>
+#elif __has_include("TampereJsSpecsJSI.h") // CMake headers on Android
+#include "TampereJsSpecsJSI.h"
 #endif
 #include <memory>
 #include <string>
+#include <optional>
 
 namespace facebook::react
 {
 
-    class TampereJsCppModule : public NativeSampleModuleCxxSpec<TampereJsCppModule>
+    class NativeTampereJsCppModule : public NativeTampereJsCppModuleCxxSpec<NativeTampereJsCppModule>
     {
     public:
-        TampereJsCppModule(std::shared_ptr<CallInvoker> jsInvoker);
+        NativeTampereJsCppModule(std::shared_ptr<CallInvoker> jsInvoker);
 
-        std::string wiki(jsi::Runtime &rt);
+        jsi::String wiki(jsi::Runtime &rt);
         double sequence(jsi::Runtime &rt, double index);
     };
 

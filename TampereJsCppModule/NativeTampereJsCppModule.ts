@@ -3,7 +3,7 @@ import type {TurboModule} from 'react-native/Libraries/TurboModule/RCTExport';
 import {TurboModuleRegistry} from 'react-native';
 
 export interface Spec extends TurboModule {
-  readonly sequence: (index: number) => number | undefined;
+  readonly sequence: (index: number) => number;
   readonly wiki: () => string;
 }
 
