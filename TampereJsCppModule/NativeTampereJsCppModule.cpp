@@ -1,4 +1,4 @@
-#include "TampereJsCppModule.h"
+#include "NativeTampereJsCppModule.h"
 
 unsigned fibonacciSequence(unsigned index)
 {

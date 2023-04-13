@@ -7,4 +7,6 @@ export interface Spec extends TurboModule {
   readonly wiki: () => string;
 }
 
-export default TurboModuleRegistry.getEnforcing<Spec>('TampereJsCppModule');
+export default TurboModuleRegistry.getEnforcing<Spec>(
+  'NativeTampereJsCppModule',
+);

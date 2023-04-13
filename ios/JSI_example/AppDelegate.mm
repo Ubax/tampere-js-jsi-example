@@ -3,7 +3,7 @@
 #import <React/RCTBundleURLProvider.h>
 #import <React/CoreModulesPlugins.h>
 #import <ReactCommon/RCTTurboModuleManager.h>
-#import <TurboModules/TampereJsCppModule.h>
+#import <AppTurboModules/NativeTampereJsCppModule.h>
 
 @interface AppDelegate () <RCTTurboModuleManagerDelegate> {}
 @end
@@ -44,8 +44,8 @@
 - (std::shared_ptr<facebook::react::TurboModule>)getTurboModule:(const std::string &)name
                                                       jsInvoker:(std::shared_ptr<facebook::react::CallInvoker>)jsInvoker
 {
-  if (name == "TampereJsCppModule") {
-    return std::make_shared<facebook::react::TampereJsCppModule>(jsInvoker);
+  if (name == "NativeTampereJsCppModule") {
+    return std::make_shared<facebook::react::NativeTampereJsCppModule>(jsInvoker);
   }
   return nullptr;
 }

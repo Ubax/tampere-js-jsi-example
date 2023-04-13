@@ -44,7 +44,7 @@ target 'JSI_example' do
   )
 
   if ENV['RCT_NEW_ARCH_ENABLED'] == '1'
-    pod 'TampereJsCppModule', :path => "./../TampereJsCppModule"
+    pod 'AppTurboModules', :path => "./../TampereJsCppModule"
   end
 
   target 'JSI_exampleTests' do
