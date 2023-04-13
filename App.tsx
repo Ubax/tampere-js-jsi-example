@@ -5,7 +5,7 @@
  * @format
  */
 
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import type {PropsWithChildren} from 'react';
 import {
   SafeAreaView,
@@ -13,17 +13,13 @@ import {
   StatusBar,
   StyleSheet,
   Text,
+  TextInput,
   useColorScheme,
   View,
 } from 'react-native';
 
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
+import {Colors, Header} from 'react-native/Libraries/NewAppScreen';
+import NativeTampereJsModule from './TampereJsCppModule/NativeTampereJsCppModule';
 
 type SectionProps = PropsWithChildren<{
   title: string;
@@ -55,8 +51,49 @@ function Section({children, title}: SectionProps): JSX.Element {
   );
 }
 
+function fibonacci(index: number) {
+  let prev1 = 1,
+    prev2 = 1;
+  for (let i = 1; i < index; i++) {
+    const b = prev2;
+    prev2 = prev1;
+    prev1 = b + prev1;
+  }
+  return prev1;
+}
+
+declare const performance: {now: () => number};
+
+function now() {
+  return performance.now();
+}
+
 function App(): JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
+
+  const [fibonacciInput, setFibonacciInput] = useState(2);
+  const [fibonacciResultCpp, setFibonacciResultCpp] = useState(0);
+  const [timeCpp, setTimeCpp] = useState(0);
+  const [fibonacciResultJs, setFibonacciResultJs] = useState(0);
+  const [timeJs, setTimeJs] = useState(0);
+
+  useEffect(() => {
+    const startCpp = now();
+    setFibonacciResultCpp(NativeTampereJsModule.sequence(fibonacciInput));
+    const endCpp = now();
+    setTimeCpp(endCpp - startCpp);
+    const startJs = now();
+    setFibonacciResultJs(fibonacci(fibonacciInput));
+    const endJs = now();
+    setTimeJs(endJs - startJs);
+  }, [fibonacciInput]);
+
+  const handleInputChange = (value: string) => {
+    const num = Number(value);
+    if (!isNaN(num)) {
+      setFibonacciInput(num);
+    }
+  };
 
   const backgroundStyle = {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
@@ -76,20 +113,19 @@ function App(): JSX.Element {
           style={{
             backgroundColor: isDarkMode ? Colors.black : Colors.white,
           }}>
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.tsx</Text> to change this
-            screen and then come back to see your edits.
+          <Section title="Fibonacci input">
+            <TextInput
+              value={String(fibonacciInput)}
+              onChangeText={handleInputChange}
+            />
           </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
+          <Section title="Fibonacci result C++">
+            {fibonacciResultCpp} [{timeCpp}]
           </Section>
-          <Section title="Debug">
-            <DebugInstructions />
+          <Section title="Fibonacci result JS">
+            {fibonacciResultJs} [{timeJs}]
           </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
+          <Section title="Time diff">{timeJs - timeCpp}</Section>
         </View>
       </ScrollView>
     </SafeAreaView>
