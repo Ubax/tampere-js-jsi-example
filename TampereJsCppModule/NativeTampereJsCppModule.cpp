@@ -3,13 +3,13 @@
 unsigned fibonacciSequence(unsigned index)
 {
     unsigned prev1 = 1, prev2 = 1;
-    for (int i = 1; i <= index; i++)
+    for (int i = 1; i < index; i++)
     {
-        int b = prev2;
-        prev2 = prev2 + prev1;
-        prev1 = b;
+        int b = prev1;
+        prev1 = prev2 + prev1;
+        prev2 = b;
     }
-    return prev2;
+    return prev1;
 }
 
 namespace facebook::react
