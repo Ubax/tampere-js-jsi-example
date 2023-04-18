@@ -76,6 +76,15 @@ function App(): JSX.Element {
   const [timeCpp, setTimeCpp] = useState(0);
   const [fibonacciResultJs, setFibonacciResultJs] = useState(0);
   const [timeJs, setTimeJs] = useState(0);
+  const [wikiContent, setWiki] = useState('Loading...');
+
+  useEffect(() => {
+    try {
+      setWiki(NativeTampereJsModule.wiki());
+    } catch (e) {
+      setWiki(String(e));
+    }
+  }, []);
 
   useEffect(() => {
     const startCpp = now();
@@ -126,6 +135,7 @@ function App(): JSX.Element {
             {fibonacciResultJs} [{timeJs}]
           </Section>
           <Section title="Time diff">{timeJs - timeCpp}</Section>
+          <Section title="Wiki">{wikiContent}</Section>
         </View>
       </ScrollView>
     </SafeAreaView>
