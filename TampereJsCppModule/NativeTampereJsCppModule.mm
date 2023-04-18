@@ -20,20 +20,26 @@ NativeTampereJsCppModule::NativeTampereJsCppModule(std::shared_ptr<CallInvoker> 
 
 jsi::String NativeTampereJsCppModule::wiki(jsi::Runtime &rt)
 {
-    NSError *error;
-    NSString *url_string = [NSString stringWithFormat: @"https://en.wikipedia.org/api/rest_v1/page/summary/Fibonacci_sequence"];
-    NSData *data = [NSData dataWithContentsOfURL: [NSURL URLWithString:url_string]];
-    NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error];
-    NSLog(@"json: %@", json);
-    NSLog(@"error: %@", error);
-    if(error==NULL){
-        NSString *summary = json[@"extract"];
-        NSLog(@"extract: %@", summary);
-        return jsi::String::createFromUtf8(rt, std::string([summary UTF8String]));
-    } else {
-        throw jsi::JSError(rt, "There was some error while fetching data from Wikipedia");
+    try{
+        NSError *error;
+        NSString *url_string = [NSString stringWithFormat: @"https://example.com/api/rest_v1/page/summary/Fibonacci_sequence"];
+        NSData *data = [NSData dataWithContentsOfURL: [NSURL URLWithString:url_string]];
+        if(data==NULL){
+            throw jsi::JSError(rt, "Network error in wiki");
+        }
+        if(error==NULL){
+            NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error];
+            NSLog(@"json: %@", json);
+            NSLog(@"error: %@", error);
+            NSString *summary = json[@"extract"];
+            NSLog(@"extract: %@", summary);
+            return jsi::String::createFromUtf8(rt, std::string([summary UTF8String]));
+        } else {
+            throw jsi::JSError(rt, "There was some error while fetching data from Wikipedia");
+        }
+    }catch(std::exception e){
+        throw jsi::JSError(rt, "Error caught in wiki");
     }
-    
 }
 double NativeTampereJsCppModule::sequence(jsi::Runtime &rt, double index)
 {
