@@ -79,11 +79,9 @@ function App(): JSX.Element {
   const [wikiContent, setWiki] = useState('Loading...');
 
   useEffect(() => {
-    try {
-      setWiki(NativeTampereJsModule.wiki());
-    } catch (e) {
-      setWiki(String(e));
-    }
+    NativeTampereJsModule.wiki()
+      .then(result => setWiki(result))
+      .catch(error => setWiki(String(error.message)));
   }, []);
 
   useEffect(() => {

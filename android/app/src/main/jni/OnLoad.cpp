@@ -32,7 +32,7 @@
 #include <fbjni/fbjni.h>
 #include <react/renderer/componentregistry/ComponentDescriptorProviderRegistry.h>
 #include <rncli.h>
-#include <NativeTampereJsCppModule.h>
+#include "TampereJsSpecs.h"
 
 namespace facebook
 {
@@ -57,10 +57,10 @@ namespace facebook
             const std::shared_ptr<CallInvoker> &jsInvoker)
         {
             // Not implemented yet: provide pure-C++ NativeModules here.
-            if (name == "NativeTampereJsCppModule")
-            {
-                return std::make_shared<facebook::react::NativeSampleModule>(jsInvoker);
-            }
+//           if (name == "NativeTampereJsCppModule")
+//           {
+//               return std::make_shared<facebook::react::NativeTampereJsCppModuleSpecJSI>(jsInvoker);
+//           }
             return nullptr;
         }
 
@@ -78,6 +78,10 @@ namespace facebook
             // }
             // return rncore_ModuleProvider(moduleName, params);
 
+            if (name == "NativeTampereJsCppModule")
+           {
+               return std::make_shared<facebook::react::NativeTampereJsCppModuleSpecJSI>(params);
+           }
             // By default we just use the module providers autolinked by RN CLI
             return rncli_ModuleProvider(name, params);
         }

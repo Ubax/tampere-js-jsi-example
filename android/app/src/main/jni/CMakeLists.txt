@@ -31,5 +31,5 @@ project(appmodules)
 include(${REACT_ANDROID_DIR}/cmake-utils/ReactNative-application.cmake)
 
 
-add_subdirectory(${REACT_ANDROID_DIR}/../../../TampereJsCppModule/ tm_build)
-target_link_libraries(${CMAKE_PROJECT_NAME} TampereJsCppModule)
+# add_subdirectory(${REACT_ANDROID_DIR}/../../../TampereJsCppModule/FibonacciLogic/ fibonaccilogic_build)
+# target_link_libraries(${CMAKE_PROJECT_NAME} fibonaccilogic)
