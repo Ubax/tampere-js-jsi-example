@@ -18,9 +18,8 @@ namespace facebook::react
 NativeTampereJsCppModule::NativeTampereJsCppModule(std::shared_ptr<CallInvoker> jsInvoker)
 : NativeTampereJsCppModuleCxxSpec(std::move(jsInvoker)) {}
 
-jsi::String NativeTampereJsCppModule::wiki(jsi::Runtime &rt)
-{
-    try{
+std::string fetchData(jsi::Runtime &rt){
+    
         NSError *error;
         NSString *url_string = [NSString stringWithFormat: @"https://example.com/api/rest_v1/page/summary/Fibonacci_sequence"];
         NSData *data = [NSData dataWithContentsOfURL: [NSURL URLWithString:url_string]];
@@ -33,14 +32,24 @@ jsi::String NativeTampereJsCppModule::wiki(jsi::Runtime &rt)
             NSLog(@"error: %@", error);
             NSString *summary = json[@"extract"];
             NSLog(@"extract: %@", summary);
-            return jsi::String::createFromUtf8(rt, std::string([summary UTF8String]));
+            return std::string([summary UTF8String]);
         } else {
             throw jsi::JSError(rt, "There was some error while fetching data from Wikipedia");
         }
-    }catch(std::exception e){
-        throw jsi::JSError(rt, "Error caught in wiki");
-    }
 }
+
+jsi::String NativeTampereJsCppModule::wikiSync(jsi::Runtime &rt)
+{
+    return jsi::String::createFromUtf8(rt, fetchData(rt));
+}
+void NativeTampereJsCppModule::wikiCallback(jsi::Runtime &rt, jsi::Function onResult)
+{
+    onResult.call(rt, fetchData(rt));
+}
+jsi::Value NativeTampereJsCppModule::wikiPromise(jsi::Runtime &rt){
+    return jsi::Value::undefined();
+}
+
 double NativeTampereJsCppModule::sequence(jsi::Runtime &rt, double index)
 {
     if (index > 0)

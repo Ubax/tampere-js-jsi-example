@@ -4,7 +4,9 @@ import {TurboModuleRegistry} from 'react-native';
 
 export interface Spec extends TurboModule {
   readonly sequence: (index: number) => number;
-  readonly wiki: () => Promise<string>;
+  readonly wikiPromise: () => Promise<string>;
+  readonly wikiSync: () => string;
+  readonly wikiCallback: (onResult: (result: string) => void) => void;
 }
 
 export default TurboModuleRegistry.getEnforcing<Spec>(

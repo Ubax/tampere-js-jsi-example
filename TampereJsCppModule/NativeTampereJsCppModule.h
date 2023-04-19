@@ -17,7 +17,9 @@ namespace facebook::react
     public:
         NativeTampereJsCppModule(std::shared_ptr<CallInvoker> jsInvoker);
 
-        jsi::String wiki(jsi::Runtime &rt);
+        jsi::String wikiSync(jsi::Runtime &rt);
+        jsi::Value wikiPromise(jsi::Runtime &rt);
+        void wikiCallback(jsi::Runtime &rt, jsi::Function onResult);
         double sequence(jsi::Runtime &rt, double index);
     };
 

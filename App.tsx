@@ -8,6 +8,7 @@
 import React, {useEffect, useState} from 'react';
 import type {PropsWithChildren} from 'react';
 import {
+  Platform,
   SafeAreaView,
   ScrollView,
   StatusBar,
@@ -79,20 +80,34 @@ function App(): JSX.Element {
   const [wikiContent, setWiki] = useState('Loading...');
 
   useEffect(() => {
-    NativeTampereJsModule.wiki()
-      .then(result => setWiki(result))
-      .catch(error => setWiki(String(error.message)));
+    if (Platform.OS === 'ios') {
+      try {
+        setWiki(NativeTampereJsModule.wikiSync());
+      } catch (e) {
+        console.error(e);
+      }
+    } else {
+      NativeTampereJsModule.wikiPromise()
+        .then(result => setWiki(result))
+        .catch(error => setWiki(String(error.message)));
+    }
   }, []);
 
   useEffect(() => {
-    const startCpp = now();
-    setFibonacciResultCpp(NativeTampereJsModule.sequence(fibonacciInput));
-    const endCpp = now();
-    setTimeCpp(endCpp - startCpp);
-    const startJs = now();
-    setFibonacciResultJs(fibonacci(fibonacciInput));
-    const endJs = now();
-    setTimeJs(endJs - startJs);
+    try {
+      const startCpp = now();
+      setFibonacciResultCpp(NativeTampereJsModule.sequence(fibonacciInput));
+      const endCpp = now();
+      setTimeCpp(endCpp - startCpp);
+      const startJs = now();
+      setFibonacciResultJs(fibonacci(fibonacciInput));
+      const endJs = now();
+      setTimeJs(endJs - startJs);
+    } catch (e) {
+      const message =
+        e && typeof e === 'object' && 'message' in e ? e.message : String(e);
+      console.error('Error', message);
+    }
   }, [fibonacciInput]);
 
   const handleInputChange = (value: string) => {
